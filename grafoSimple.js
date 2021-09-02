@@ -149,3 +149,35 @@ function edgeSaveData(data,callback) {
     edgeClearPopUp();
     callback(data);
 }
+
+function creacionMatrizAd(){
+    var contador = 0;
+    var largoId = arrayIdVertices.length;
+    var matrizAdy = new Array();
+    var idConectados = new Array();
+    
+    for(let i = 0 ; i<=largoId; i++){ 
+        matrizAdy[i] = new Array();
+    }// matriz creada
+    
+    for(let i=0;i< largoId; i++){
+        for(let j=0; j < largoId; j++){
+            matrizAdy[i][j]=0; // iniciar toda la matriz en 0
+        }
+    }
+    
+    while(contador < largoId){ 
+       idConectados = network.getConnectedNodes(arrayIdVertices[contador]); //en id conectados dejar los nodos que estan conectados con ese vertice
+       if(idConectados != null ){
+           for(let i = 0 ; i < idConectados.length; i++){
+               for(let j = 0; j <largoId; j++){
+                   if(idConectados[i]==arrayIdVertices[j]){
+                        matrizAdy[contador][j] = 1;
+                   }
+               }
+           }
+       }
+       contador++;
+    }
+    return matrizAdy;
+}

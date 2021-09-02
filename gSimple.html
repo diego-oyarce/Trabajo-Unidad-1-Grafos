@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #grafo-simple{
+            width: 700px;
+            height: 400px;
+            border: 1px solid black ;
+        }
+        #node-popUp {
+            display:none;
+            position:absolute;
+            top:350px;
+            left:170px;
+            z-index:299;
+            width:250px;
+            height:170px;
+            background-color: #f9f9f9;
+            border-style:solid;
+            border-width:3px;
+            border-color: #5394ed;
+            padding:10px;
+            text-align: center;
+        }
+        #edge-popUp {
+            display:none;
+            position:absolute;
+            top:350px;
+            left:170px;
+            z-index:299;
+            width:250px;
+            height:170px;
+            background-color: #f9f9f9;
+            border-style:solid;
+            border-width:3px;
+            border-color: #5394ed;
+            padding:10px;
+            text-align: center;
+        }
+    </style>
+    <title>Grafo Simple</title>
+</head>
+<body>
+    <h1>Grafo Simple</h1>
+    <hr>
+    <h2>Ingrese un Grafo</h2>
+    <div id="grafo-simple"></div>
+   
+    <div id="node-popUp">
+        <span id="operation-node">Nodo</span>
+        <table style="margin:auto;">
+            <tr>
+            <td>ID</td><td><input id="node-id" type="number" placeholder="id nodo"></td>
+            </tr>
+            <tr>
+            <td>Etiqueta</td><td><input id="node-label" placeholder="etiqueta nodo"></td>
+            </tr>
+        </table>
+        <input type="button" value="Guardar" id="saveButton-node"></button>
+        <input type="button" value="Cancelar" id="cancelButton-node"></button>
+    </div>
+
+    <div id="edge-popUp">
+        <span id="operation-edge">Arista</span>
+        <table style="margin:auto;">
+        <tr>
+            <td>Peso Arista</td><td><input id="edge-label" type="number" placeholder="peso arista"></td>
+        </tr>
+        <input type="button" value="Guardar" id="saveButton-edge"></button>
+        <input type="button" value="Cancelar" id="cancelButton-edge"></button>
+    </div>
+
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="grafoSimple.js"></script>
+    <script type="text/javascript" src="vis/dist/vis.js"></script>
+</div>
+</body>
+</html>

@@ -179,5 +179,11 @@ function creacionMatrizAd(){
        }
        contador++;
     }
+   /* let i=0;
+    while(i<matrizAdy.length){
+        document.write(matrizAdy[i]);
+        document.write("<br>");
+        i++;
+    }*/
     return matrizAdy;
 }

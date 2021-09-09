@@ -16,6 +16,9 @@ var arrayLabelVertices = [];
 //ARRAY DONDE SE GUARDARÁN LOS PESOS DE LAS ARISTAS
 var pesos_aristas = [];
 
+//MATRIZ ELEVADA A UN EXPONENTE
+var matrizElevada = [];
+
 //VARIABLE QUE MUESTRA NODO DE ORIGEN (FROM) Y NODO DE LLEGADA (TO)
 var itemsEdges = edges.get({
     fields: ['from', 'to'],
@@ -156,11 +159,11 @@ function creacionMatrizAd(){
     var matrizAdy = new Array();
     var idConectados = new Array();
     
-    for(let i = 0 ; i<=largoId; i++){ 
+    for(let i=0; i < largoId; i++){ 
         matrizAdy[i] = new Array();
     }// matriz creada
     
-    for(let i=0;i< largoId; i++){
+    for(let i=0; i < largoId; i++){
         for(let j=0; j < largoId; j++){
             matrizAdy[i][j]=0; // iniciar toda la matriz en 0
         }
@@ -179,11 +182,70 @@ function creacionMatrizAd(){
        }
        contador++;
     }
-   /* let i=0;
+   /*let i=0;
     while(i<matrizAdy.length){
-        document.write(matrizAdy[i]);
-        document.write("<br>");
+        alert(matrizAdy[i]);
+        alert("<br>");
         i++;
     }*/
     return matrizAdy;
+}
+
+function potenciaDeUnaMatriz(exp, matriz){
+    let i=1;
+    var matrizElevada = matriz;
+    while(i<exp){
+        matrizElevada = math.multiply(matrizElevada, matriz);
+        i++;
+    }
+    return matrizElevada;
+}
+
+function matrizIdentidad(dimension){
+    let matrizIden = new Array();
+    for(let i=0; i<dimension; i++){
+        matrizIden[i] = new Array();
+        for(let j=0; j<dimension; j++){
+            if(i == j){
+                matrizIden[i][j] = 1;
+            }
+            else{
+                matrizIden[i][j] = 0;
+            }
+        }
+    }
+    return matrizIden;
+}
+
+function matrizDeCaminos(){
+    let matrizAdyacencia = creacionMatrizAd();  
+    let matrizCaminos = matrizIdentidad(arrayIdVertices.length) ;
+    let matrizAux = [];
+    let j=0;
+
+    for(let i=1; i<arrayIdVertices.length; i++){
+        matrizAux = potenciaDeUnaMatriz(i, matrizAdyacencia);
+        matrizCaminos = math.add(matrizCaminos, matrizAux);
+    }
+
+    /*while(j < matrizCaminos.length){
+        alert(matrizCaminos[j]);
+        alert("<br>");
+        j++;
+    }*/
+    return matrizCaminos;
+}
+
+function conexo(){//verificar que todos los coeficientes de la matriz de caminos sean distintos de cero
+    let matrizCaminos = matrizDeCaminos();
+    for(let i=0; i<matrizCaminos.length; i++){
+        for(let j=0; j<matrizCaminos[i].length; j++){
+            if(matrizCaminos[i][j] == 0){
+                alert("El grafo no es conexo");
+                return false;
+            }
+        }
+    }
+    alert("El grafo es conexo");
+    return true;
 }

@@ -1,0 +1,14 @@
+.idea
+.vscode
+.c9
+_site
+*swp
+*.log
+*.bak
+
+node_modules
+.nyc_output
+/coverage
+
+lib
+*.generated.js

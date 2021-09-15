@@ -153,9 +153,9 @@ function edgeSaveData(data,callback) {
     callback(data);
 }
 
-function creacionMatrizAd(){
+function creacionMatrizAd(arrayIdV){
     var contador = 0;
-    var largoId = arrayIdVertices.length;
+    var largoId = arrayIdV.length;
     var matrizAdy = new Array();
     var idConectados = new Array();
     
@@ -170,11 +170,11 @@ function creacionMatrizAd(){
     }
     
     while(contador < largoId){ 
-       idConectados = network.getConnectedNodes(arrayIdVertices[contador]); //en id conectados dejar los nodos que estan conectados con ese vertice
+       idConectados = network.getConnectedNodes(arrayIdV[contador]); //en id conectados dejar los nodos que estan conectados con ese vertice
        if(idConectados != null ){
            for(let i = 0 ; i < idConectados.length; i++){
                for(let j = 0; j <largoId; j++){
-                   if(idConectados[i]==arrayIdVertices[j]){
+                   if(idConectados[i]==arrayIdV[j]){
                         matrizAdy[contador][j] = 1;
                    }
                }
@@ -217,27 +217,27 @@ function matrizIdentidad(dimension){
     return matrizIden;
 }
 
-function matrizDeCaminos(){
-    let matrizAdyacencia = creacionMatrizAd();  
-    let matrizCaminos = matrizIdentidad(arrayIdVertices.length) ;
+function matrizDeCaminos(arrayIdV){
+    let matrizAdyacencia = creacionMatrizAd(arrayIdV);  
+    let matrizCaminos = matrizIdentidad(arrayIdV.length) ;
     let matrizAux = [];
     let j=0;
 
-    for(let i=1; i<arrayIdVertices.length; i++){
+    for(let i=1; i<arrayIdV.length; i++){
         matrizAux = potenciaDeUnaMatriz(i, matrizAdyacencia);
         matrizCaminos = math.add(matrizCaminos, matrizAux);
     }
 
-    /*while(j < matrizCaminos.length){
+    while(j < matrizCaminos.length){
         alert(matrizCaminos[j]);
         alert("<br>");
         j++;
-    }*/
+    }
     return matrizCaminos;
 }
 
-function conexo(){//verificar que todos los coeficientes de la matriz de caminos sean distintos de cero
-    let matrizCaminos = matrizDeCaminos();
+function conexo(arrayIdV){//verificar que todos los coeficientes de la matriz de caminos sean distintos de cero
+    let matrizCaminos = matrizDeCaminos(arrayIdV);
     for(let i=0; i<matrizCaminos.length; i++){
         for(let j=0; j<matrizCaminos[i].length; j++){
             if(matrizCaminos[i][j] == 0){
@@ -248,4 +248,35 @@ function conexo(){//verificar que todos los coeficientes de la matriz de caminos
     }
     alert("El grafo es conexo");
     return true;
+}
+
+//NOS DICE LOS VERTICES DEL GRAFO TIENEN GRADO MAYOR O IGUAL A 2
+function gradoVertices(){
+    let i=0;
+    let nodosConectados;
+    while(i < arrayIdVertices.length){
+        nodosConectados = network.getConnectedNodes(arrayIdVertices[i]);
+        if(nodosConectados.length < 2){
+            return false;
+        }
+    }
+    return true;
+}
+
+//NOS DICE SI EL GRAFO ES 2-CONEXO (SE DEBEN ELIMINAR MINIMO DOS VERTICES PARA HACER QUE EL GRAFO SE NO CONEXO)
+function DosConexo(){
+    
+}
+
+/*PARA QUE UN GRAFO SEA HAMILTONIANO DEBE CUMPIR:
+-DEBE SER 2-CONEXO
+-DEBE SER CONEXO Y TODOS SUS VERTICES DEBEN TENER GRADO MAYOR O IGUAL A 2
+-PARA TODO S c V, S DISTINTO DEL VACIO SE VERIFICA c(G-S)<=|S| DONDE c(G-S) REPRESENTA EL NÚMERO DE COMPONENTES CONEXAS DEL GRAFO OBTENIDO DE G DESPUES DE ELIMINAR LOS VERTICES (Y LAS ARISTAS INCIDENTES) DE S.*/
+function grafoHamiltoniano(){
+    if(conexo() == false){
+        alert("El grafo no es Hamiltoniano");
+    }
+    if(gradoVertices() == false){
+        alert("El grafo no es Hamiltoniano");
+    }
 }

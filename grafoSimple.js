@@ -245,7 +245,7 @@ function conexo(arrayIdV){//verificar que todos los coeficientes de la matriz de
                 return false;
             }
         }
-    }
+    }   
     alert("El grafo es conexo");
     return true;
 }
@@ -263,15 +263,6 @@ function gradoVertices(){
     return true;
 }
 
-//NOS DICE SI EL GRAFO ES 2-CONEXO (SE DEBEN ELIMINAR MINIMO DOS VERTICES PARA HACER QUE EL GRAFO SE NO CONEXO)
-function DosConexo(){
-    
-}
-
-/*PARA QUE UN GRAFO SEA HAMILTONIANO DEBE CUMPIR:
--DEBE SER 2-CONEXO
--DEBE SER CONEXO Y TODOS SUS VERTICES DEBEN TENER GRADO MAYOR O IGUAL A 2
--PARA TODO S c V, S DISTINTO DEL VACIO SE VERIFICA c(G-S)<=|S| DONDE c(G-S) REPRESENTA EL NÚMERO DE COMPONENTES CONEXAS DEL GRAFO OBTENIDO DE G DESPUES DE ELIMINAR LOS VERTICES (Y LAS ARISTAS INCIDENTES) DE S.*/
 function grafoHamiltoniano(){
     if(conexo() == false){
         alert("El grafo no es Hamiltoniano");
@@ -279,4 +270,82 @@ function grafoHamiltoniano(){
     if(gradoVertices() == false){
         alert("El grafo no es Hamiltoniano");
     }
+}
+
+function recorrerGrafo(){
+    let nodosAdyacentes = new Array();
+    let nodosAdyacentesAux = new Array();
+    let camino = new Array();
+    let nodoElegido;
+
+    for(let i=0; i<arrayIdVertices.length; i++){
+        nodosAdyacentes[i] = network.getConnectedNodes(arrayIdVertices[i]);
+    }
+
+    camino.push(arrayIdVertices[0]);
+    nodosAdyacentesAux = network.getConnectedNodes(camino[0]);
+
+    for(let j=0; j<nodosAdyacentes.length; j++){
+        nodosAdyacentesAux = nodosAdyacentes[j];
+        for(let k=0; k<nodosAdyacentesAux.length; k++){
+            nodoElegido = nodosAdyacentesAux[k];
+            camino.push(nodoElegido);
+        }
+        alert("camino[]: " + camino);
+    }
+
+
+}
+
+function revisarNodo(nodosVisitados, matrizAdyacencia, indiceNodo){
+    if(nodosVisitados.includes(indiceNodo) || network.getConnectedNodes(arrayIdVertices[indiceNodo]).length == 0){
+        return nodosVisitados;
+    }
+    else{
+        nodosVisitados.push(indiceNodo);
+        for(let i=0; i<matrizAdyacencia[indiceNodo].length; i++){
+            if(matrizAdyacencia[indiceNodo][i] == 1){
+                indiceNodo = i;
+                matrizAdyacencia[indiceNodo][i] = 0;
+                revisarNodo(nodosVisitados, matrizAdyacencia, indiceNodo);
+            }
+            //alert("nodosVisitados: " + nodosVisitados);
+        }
+    }
+    return nodosVisitados;
+}
+
+function revisarCamino(nodosVisitados){
+    let nodoAux = nodosVisitados[(nodosVisitados.length-1)];
+    let arrayAux = network.getConnectedNodes(nodosVisitados[0]);
+    if(nodosVisitados.length == arrayIdVertices.length){
+        if(arrayAux.includes(arrayIdVertices[nodoAux])){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
+function caminoHamiltoniano(arrayIdVertices){
+//INTENTAR TRABAJARLO CON LA MATRIZ DE ADYACENCIA
+    let nodosVisitados = new Array();
+    let indiceNodo = 0;
+    let matrizAdyacencia = creacionMatrizAd(arrayIdVertices);
+    //alert("matrizAdyacencia: "+matrizAdyacencia);
+    nodosVisitados.push(indiceNodo);
+    //alert("nodosVisitados: " + nodosVisitados);
+    for(let i=0; i<arrayIdVertices.length; i++){
+        indiceNodo = i;
+        let camino = revisarNodo(nodosVisitados, matrizAdyacencia, indiceNodo);
+        alert("camino: " + camino);
+        if(revisarCamino(nodosVisitados)){
+            alert("EL GRAFO ES HAMILTONIANO");
+            return true;
+        }
+        nodosVisitados = new Array();
+    }
+    alert("EL GRAFO NO ES HAMILTONIANO");
+    return false;
 }

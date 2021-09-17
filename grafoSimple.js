@@ -1,3 +1,8 @@
+//VERIFICAR QUE NO SE PUEDAN EJECUTAR LAS FUNCIONES SI NO SE HA INGRESADO UN GRAFO
+//VERIFICAR QUE AL ELIMINAR UN NODO SE ELIMINE DEL ARRAY
+
+
+
 //SE CREA UN ARREGLO VACIO DE NODOS
 var nodes = new vis.DataSet([]);
 
@@ -153,9 +158,9 @@ function edgeSaveData(data,callback) {
     callback(data);
 }
 
-function creacionMatrizAd(arrayIdV){
+function creacionMatrizAd(){
     var contador = 0;
-    var largoId = arrayIdV.length;
+    var largoId = arrayIdVertices.length;
     var matrizAdy = new Array();
     var idConectados = new Array();
     
@@ -170,11 +175,11 @@ function creacionMatrizAd(arrayIdV){
     }
     
     while(contador < largoId){ 
-       idConectados = network.getConnectedNodes(arrayIdV[contador]); //en id conectados dejar los nodos que estan conectados con ese vertice
+       idConectados = network.getConnectedNodes(arrayIdVertices[contador]); //en id conectados dejar los nodos que estan conectados con ese vertice
        if(idConectados != null ){
            for(let i = 0 ; i < idConectados.length; i++){
                for(let j = 0; j <largoId; j++){
-                   if(idConectados[i]==arrayIdV[j]){
+                   if(idConectados[i]==arrayIdVertices[j]){
                         matrizAdy[contador][j] = 1;
                    }
                }
@@ -217,36 +222,45 @@ function matrizIdentidad(dimension){
     return matrizIden;
 }
 
-function matrizDeCaminos(arrayIdV){
-    let matrizAdyacencia = creacionMatrizAd(arrayIdV);  
-    let matrizCaminos = matrizIdentidad(arrayIdV.length) ;
+function matrizDeCaminos(){
+    if(arrayIdVertices.length == 0){
+        alert("NO SE HA INGRESADO NINGÚN GRAFO");
+        return false;
+    }
+    let matrizAdyacencia = creacionMatrizAd();  
+    let matrizCaminos = matrizIdentidad(arrayIdVertices.length) ;
     let matrizAux = [];
     let j=0;
 
-    for(let i=1; i<arrayIdV.length; i++){
+    for(let i=1; i<arrayIdVertices.length; i++){
         matrizAux = potenciaDeUnaMatriz(i, matrizAdyacencia);
         matrizCaminos = math.add(matrizCaminos, matrizAux);
     }
 
-    while(j < matrizCaminos.length){
+    /*while(j < matrizCaminos.length){
         alert(matrizCaminos[j]);
         alert("<br>");
         j++;
-    }
+    }*/
     return matrizCaminos;
 }
 
-function conexo(arrayIdV){//verificar que todos los coeficientes de la matriz de caminos sean distintos de cero
-    let matrizCaminos = matrizDeCaminos(arrayIdV);
+function conexo(){
+    if(arrayIdVertices.length == 0){
+        alert("NO SE HA INGRESADO NINGÚN GRAFO");
+        return false;
+    }
+
+    let matrizCaminos = matrizDeCaminos(arrayIdVertices);
     for(let i=0; i<matrizCaminos.length; i++){
         for(let j=0; j<matrizCaminos[i].length; j++){
             if(matrizCaminos[i][j] == 0){
-                alert("El grafo no es conexo");
+                alert("EL GRAFO NO ES CONEXO");
                 return false;
             }
         }
     }   
-    alert("El grafo es conexo");
+    alert("EL GRAFO ES CONEXO");
     return true;
 }
 
@@ -261,40 +275,6 @@ function gradoVertices(){
         }
     }
     return true;
-}
-
-function grafoHamiltoniano(){
-    if(conexo() == false){
-        alert("El grafo no es Hamiltoniano");
-    }
-    if(gradoVertices() == false){
-        alert("El grafo no es Hamiltoniano");
-    }
-}
-
-function recorrerGrafo(){
-    let nodosAdyacentes = new Array();
-    let nodosAdyacentesAux = new Array();
-    let camino = new Array();
-    let nodoElegido;
-
-    for(let i=0; i<arrayIdVertices.length; i++){
-        nodosAdyacentes[i] = network.getConnectedNodes(arrayIdVertices[i]);
-    }
-
-    camino.push(arrayIdVertices[0]);
-    nodosAdyacentesAux = network.getConnectedNodes(camino[0]);
-
-    for(let j=0; j<nodosAdyacentes.length; j++){
-        nodosAdyacentesAux = nodosAdyacentes[j];
-        for(let k=0; k<nodosAdyacentesAux.length; k++){
-            nodoElegido = nodosAdyacentesAux[k];
-            camino.push(nodoElegido);
-        }
-        alert("camino[]: " + camino);
-    }
-
-
 }
 
 function revisarNodo(nodosVisitados, matrizAdyacencia, indiceNodo){
@@ -328,14 +308,23 @@ function revisarCamino(nodosVisitados){
     }
 }
 
-function caminoHamiltoniano(arrayIdVertices){
+function caminoHamiltoniano(){
 //INTENTAR TRABAJARLO CON LA MATRIZ DE ADYACENCIA
     let nodosVisitados = new Array();
     let indiceNodo = 0;
-    let matrizAdyacencia = creacionMatrizAd(arrayIdVertices);
+    let matrizAdyacencia = creacionMatrizAd();
     //alert("matrizAdyacencia: "+matrizAdyacencia);
     nodosVisitados.push(indiceNodo);
     //alert("nodosVisitados: " + nodosVisitados);
+    if(conexo() == false){
+        alert("EL GRAFO NO ES HAMILTONIANO");
+        return false;
+    }
+    if(gradoVertices() == false){
+        alert("EL GRAFO NO ES HAMILTONIANO");
+        return false;
+    }
+
     for(let i=0; i<arrayIdVertices.length; i++){
         indiceNodo = i;
         let camino = revisarNodo(nodosVisitados, matrizAdyacencia, indiceNodo);

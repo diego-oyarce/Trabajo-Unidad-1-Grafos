@@ -22,9 +22,14 @@ body {background-color: rgb(29, 28, 36);}
 }
 
 #grafo-simple{
-    width: 700px;
-    height: 400px;
-    border: 1px solid white ;
+    background-color: darkcyan;
+    width: 70%;
+    height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    border-width: 5px;
+    border-color: white;
 }
 
 h1{
@@ -88,4 +93,31 @@ a:active    {
     border-color: #5394ed;
     padding:10px;
     text-align: center;
+}
+.titulo,
+.ingrese-grafo {
+    font-size: 340%;
+    color: rebeccapurple;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.funciones {
+    display: flex;
+    justify-content: center;
+}
+.hamiltoniano,
+.matriz-caminos,
+.conexo {
+    margin: 1%;
+    background-color:cornflowerblue;
+    color: cornsilk;
+    border: solid;
+    border-width: 2px;
+    border-radius: 6px;
+}
+.hamiltoniano:hover,
+.matriz-caminos:hover,
+.conexo:hover {
+    background-color: tomato;
 }

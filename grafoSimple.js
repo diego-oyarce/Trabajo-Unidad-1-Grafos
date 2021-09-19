@@ -338,3 +338,49 @@ function caminoHamiltoniano(){
     alert("EL GRAFO NO ES HAMILTONIANO");
     return false;
 }
+function caminoCorto(){
+    var idnodo1=documnet.getElementById('nodo1').value;
+    var idnodo2=documnet.getElementById('nodo2').value;
+    let existen1=false, existen2=false;
+    let nodoAvanza=idnodo1, pesos=0, mejorCamino=99,saltos=0;
+    /*for(let i=0; i<infoAristas.length;i++){
+        document.write("from: "+ infoAristas[i].from + "to: "+ infoAristas[i].to +"peso: "+infoAristas[i].peso);
+        document.write("<br>");
+    }*/
+    for(let i=0;i<arrayIdVertices.length;i++){
+        if(arrayIdVertices[i]==idnodo1){
+            existen1=true;
+        }
+    }
+    for(let i=0;i<arrayIdVertices.length;i++){
+        if(arrayIdVertices[i]==idnodo2){
+            existen2=true;
+        }
+    }
+    if(existen1==false&& existen2==false){
+        alert("NO EXISTEN LOS NODOS EN ESTE GRAFO");
+    }
+    if(existen1==true&& existen2==true){
+        if(idnodo1==idnodo2){
+            alert("ES EL MISMO NODO POR ENDE NO HAY CAMINO MAS CORTO");
+        }
+        else{
+            while(nodoAvanza!=idnodo2){
+                for(let i=0; i<infoAristas.length;i++){
+                    if(infoAristas[i].from==nodoAvanza){
+                        nodoAvanza=infoAristas[i].to;
+                        pesos=infoAristas[i].peso+pesos;
+                        saltos++;
+                    }
+                }
+            }
+            if(saltos<mejorCamino){
+                mejorCamino=saltos;
+            }
+        }
+
+    }
+    return mejorCamino;
+    
+    
+}

@@ -37,6 +37,17 @@
     <br>
     <!-- <a onclick="gradoVertices()">GRADO DE VERTICES</a> -->
     <br>
+    <div class="funciones">
+    <form>
+        <p>Ingrese los id de los nodos para consultar el camino mas corto </p>
+        <label>Id del nodo 1: </label>
+        <input id="nodo1" type="number">
+        <label>Id del nodo 2: </label>
+        <input id="nodo2" type="number">
+        <button onclick="caminoCorto()" class="caminoCorto">enviar</button>
+    </form>
+    </div>
+
     <a onclick="caminoHamiltoniano(arrayIdVertices)">CAMINO</a>
    
     <div id="node-popUp">

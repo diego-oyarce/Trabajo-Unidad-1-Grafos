@@ -1,9 +1,28 @@
-body {background-color: rgb(29, 28, 36);}
-#menu{
+.body {
+    background-color:lightskyblue;
+}
+.menu{
     background-color: rgb(47, 40, 151);
+    height: 50px;
+
+}
+.inicio{
+    color:black;
+    font-size: 120%;
+    margin: 2%;
+}
+#grafo-simple{
+    background-color: darkcyan;
+    width: 70%;
+    height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    border-width: 5px;
+    border-color: white;
 }
 
-#menu ul{
+/*#menu ul{
     list-style: none;
     margin: 0;
     padding: 0;
@@ -20,18 +39,6 @@ body {background-color: rgb(29, 28, 36);}
 #menu ul li a:hover{
     background-color: #2d537e;
 }
-
-#grafo-simple{
-    background-color: darkcyan;
-    width: 70%;
-    height: 450px;
-    margin-left: auto;
-    margin-right: auto;
-    border: solid;
-    border-width: 5px;
-    border-color: white;
-}
-
 h1{
     color:white;
     font-size: 50px;
@@ -40,12 +47,6 @@ h2{
     color:white;
     font-size: 25px;
 }
-
-#inicio{
-    color: white;
-    font-size: 20px;
-}
-
 a{
     font-size: 20px;
 }
@@ -63,7 +64,7 @@ a:active    {
     text-decoration: underline;
     color: red;
 }
-
+*/
 #node-popUp {
     display:none;
     position:absolute;
@@ -106,6 +107,7 @@ a:active    {
     display: flex;
     justify-content: center;
 }
+.camino-corto,
 .hamiltoniano,
 .matriz-caminos,
 .conexo {
@@ -116,8 +118,30 @@ a:active    {
     border-width: 2px;
     border-radius: 6px;
 }
+.camino-corto:hover,
 .hamiltoniano:hover,
 .matriz-caminos:hover,
 .conexo:hover {
     background-color: tomato;
+}
+.instrucciones{
+    font-size: 120%;
+    width: auto;
+    height: auto;
+    margin: 3%;
+}
+.link-inicio{/*pendiente*/
+    color:white;
+    margin: 2%;
+    text-decoration: none;
+    font-size: 200%;
+}
+.link-inicio:hover{
+    color: pink;
+}
+.repo-github{
+    width: 20%;
+    height: 20%;
+    margin-top: auto;
+    margin-left: 40%;
 }

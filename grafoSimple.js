@@ -1,6 +1,4 @@
-//VERIFICAR QUE NO SE PUEDAN EJECUTAR LAS FUNCIONES SI NO SE HA INGRESADO UN GRAFO
-//VERIFICAR QUE AL ELIMINAR UN NODO SE ELIMINE DEL ARRAY
-
+//VERIFICAR QUE AL ELIMINAR UN NODO SE ELIMINE DEL ARRAY O SE PUEDE CREAR CONSTANTEMENTE UN ARRAY APARTIR DE LOS DATOS DEL ARRAY nodes
 
 
 //SE CREA UN ARREGLO VACIO DE NODOS
@@ -96,7 +94,7 @@ var options = {
                 var nodeSaveButton = document.getElementById('saveButton-node');
                 var nodeCancelButton = document.getElementById('cancelButton-node');
                 var node_div = document.getElementById('node-popUp');
-                span.innerHTML = "Añadir nodo";
+                //span.innerHTML = "Añadir nodo";
                 nodeSaveButton.onclick = nodeSaveData.bind(this,data,callback);
                 nodeCancelButton.onclick = nodeClearPopUp.bind();
                 node_div.style.display = 'block';
@@ -106,7 +104,7 @@ var options = {
                 var edgeSaveButton = document.getElementById('saveButton-edge');
                 var edgeCancelButton = document.getElementById('cancelButton-edge');
                 var edge_div = document.getElementById('edge-popUp');
-                edgeSpan.innerHTML = "Añadir peso";
+                //edgeSpan.innerHTML = "Añadir peso";
                 edgeSaveButton.onclick = edgeSaveData.bind(this,data,callback);
                 edgeCancelButton.onclick = edgeClearPopUp.bind();
                 edge_div.style.display = 'block';
@@ -223,7 +221,7 @@ function matrizIdentidad(dimension){
 }
 
 function matrizDeCaminos(){
-    if(arrayIdVertices.length == 0){
+    if(nodes.length == 0){
         alert("NO SE HA INGRESADO NINGÚN GRAFO");
         return false;
     }
@@ -236,17 +234,23 @@ function matrizDeCaminos(){
         matrizAux = potenciaDeUnaMatriz(i, matrizAdyacencia);
         matrizCaminos = math.add(matrizCaminos, matrizAux);
     }
-
-    /*while(j < matrizCaminos.length){
-        alert(matrizCaminos[j]);
-        alert("<br>");
-        j++;
-    }*/
     return matrizCaminos;
 }
 
+function mostrarMatrizCaminos(){
+    let matrizCaminos = matrizDeCaminos();
+
+    if(matrizCaminos != false){
+        let i = 0;
+        while(i < matrizCaminos.length){
+            alert(matrizCaminos[i]+"\n");
+            i++;
+        }
+    }
+}
+
 function conexo(){
-    if(arrayIdVertices.length == 0){
+    if(nodes.length == 0){
         alert("NO SE HA INGRESADO NINGÚN GRAFO");
         return false;
     }
@@ -286,7 +290,7 @@ function revisarNodo(nodosVisitados, matrizAdyacencia, indiceNodo){
         for(let i=0; i<matrizAdyacencia[indiceNodo].length; i++){
             if(matrizAdyacencia[indiceNodo][i] == 1){
                 indiceNodo = i;
-                matrizAdyacencia[indiceNodo][i] = 0;
+               // matrizAdyacencia[indiceNodo][i] = 0;
                 revisarNodo(nodosVisitados, matrizAdyacencia, indiceNodo);
             }
             //alert("nodosVisitados: " + nodosVisitados);

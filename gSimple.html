@@ -23,6 +23,7 @@
             <li>El ID de los nodos solo admite datos numéricos.</li>
             <li>Para crear un nodo seleccione la opción "Agregar Nodo" y luego haga click en un espacio en blanco.</li>
             <li>Para ingresar una arista seleccione la opción "Agragar Arista", luego arrastre el cursor desde el nodo de origen hasta el nodo fina.</li>
+            <li>La pantalla de ingreso de grafos puede acercarce o alejarse, esto se logra seleccionando la pantalla y haciendo scroll sobre ella.</li>
         </ul>
     </p>
     <br>
@@ -30,18 +31,16 @@
     <h2 class="ingrese-grafo">Ingrese un Grafo</h2>
     <div id="grafo-simple"></div>
     <div class="funciones">
-    <button onclick="matrizDeCaminos()" class="matriz-caminos">Matriz de caminos</button>
+    <button onclick="mostrarMatrizCaminos()" class="matriz-caminos">Matriz de caminos</button>
     <button onclick="conexo(arrayIdVertices)" class="conexo">Conexo</button>
     <button onclick="caminoHamiltoniano()" class="hamiltoniano">Grafo hamiltoniano</button>
     </div>
     <br>
-    <!-- <a onclick="gradoVertices()">GRADO DE VERTICES</a> -->
-    <br>
-    <a onclick="caminoHamiltoniano(arrayIdVertices)">CAMINO</a>
    
     <div id="node-popUp">
-        <span id="operation-node">Nodo</span>
+        <!-- <span id="operation-node">Nodo</span> -->
         <table style="margin:auto;">
+            <th>Añadir Nodo</th>
             <tr>
             <th>ID</th><td><input id="node-id" type="number" placeholder="id nodo"></td>
             </tr>
@@ -54,7 +53,7 @@
     </div>
 
     <div id="edge-popUp">
-        <span id="operation-edge">Arista</span>
+        <!-- <span id="operation-edge">Arista</span> -->
         <table style="margin:auto;">
         <tr>
             <th>Peso Arista</th><td><input id="edge-label" type="number" placeholder="peso arista"></td>
